@@ -59,6 +59,13 @@ export default definePreview({
         desktop: { name: "Desktop", styles: { width: "1440px", height: "900px" }, type: "desktop" },
       },
     },
+    // Chromatic snapshots every story once per mode, so light and dark are both visually tested.
+    chromatic: {
+      modes: {
+        light: { theme: "light" },
+        dark: { theme: "dark" },
+      },
+    },
     a11y: {
       // 'error' fails the test run on any violation; individual stories can opt down to 'todo'.
       test: "error",

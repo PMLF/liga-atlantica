@@ -27,6 +27,8 @@ export default defineConfig({
         ],
         test: {
           name: 'storybook',
+          // A fresh CI runner can reload once while Vite pre-bundles deps; retry rather than flake.
+          retry: process.env.CI ? 1 : 0,
           browser: {
             enabled: true,
             headless: true,

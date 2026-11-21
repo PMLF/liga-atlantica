@@ -10,7 +10,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest run --project=storybook",
-    "test:watch": "vitest --project=storybook"
+    "test:watch": "vitest --project=storybook",
+    "chromatic": "chromatic"
   },
   "dependencies": {
     "next": "16.4.6",
@@ -31,6 +32,7 @@
     "@types/react-dom": "^19",
     "@vitest/browser-playwright": "^4",
     "@vitest/coverage-v8": "^4",
+    "chromatic": "^18.15.1",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
     "eslint-plugin-storybook": "^10.6.8",

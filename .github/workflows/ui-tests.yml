@@ -1,0 +1,44 @@
+name: UI tests
+
+on:
+  pull_request:
+  # Builds on main become the baselines PRs are compared against (and TurboSnap diffs from).
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  interaction-and-a11y:
+    name: Interaction + a11y tests (Vitest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      # CI=true (set by GitHub) skips the story tagged `known-a11y-failure`.
+      - run: npm test
+
+  visual:
+    name: Visual tests (Chromatic)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # TurboSnap needs full git history to find the baseline commit and diff against it.
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # Options (TurboSnap, auto-accept on main, etc.) live in chromatic.config.json.
+      - uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
