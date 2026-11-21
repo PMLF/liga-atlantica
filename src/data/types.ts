@@ -1,0 +1,49 @@
+export type KitPattern = "plain" | "stripes" | "hoops" | "halves";
+
+export interface Kit {
+  primary: string;
+  secondary: string;
+  pattern: KitPattern;
+}
+
+export type CrestShape = "shield" | "round" | "heater";
+export type CrestMotif = "band" | "stripes" | "split" | "chevron";
+
+export interface Club {
+  id: string;
+  name: string;
+  shortName: string;
+  code: string;
+  city: string;
+  founded: number;
+  stadium: string;
+  kit: Kit;
+  crest: { shape: CrestShape; motif: CrestMotif };
+}
+
+export type Position = "GK" | "RB" | "CB" | "LB" | "DM" | "CM" | "AM" | "RW" | "LW" | "ST";
+
+export type PlayerStatus = "available" | "injured" | "suspended";
+
+export interface PlayerStats {
+  appearances: number;
+  goals: number;
+  assists: number;
+  cleanSheets?: number;
+  conceded?: number;
+}
+
+export interface Player {
+  id: string;
+  clubId: string;
+  name: string;
+  number: number;
+  position: Position;
+  nationality: string;
+  photoUrl?: string;
+  isCaptain?: boolean;
+  status: PlayerStatus;
+  statusNote?: string;
+  rating: number;
+  stats: PlayerStats;
+}
