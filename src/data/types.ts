@@ -33,6 +33,47 @@ export interface PlayerStats {
   conceded?: number;
 }
 
+export type Result = "W" | "D" | "L";
+
+export interface StandingRow {
+  position: number;
+  clubId: string;
+  played: number;
+  won: number;
+  drawn: number;
+  lost: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  points: number;
+  /** Most recent results, oldest first, at most five. */
+  form: Result[];
+}
+
+export type MatchStatus = "scheduled" | "live" | "half-time" | "full-time" | "postponed";
+
+export interface Goal {
+  /** The club credited with the goal (for own goals, the club that benefits). */
+  clubId: string;
+  player: string;
+  minute: number;
+  stoppage?: number;
+  kind?: "penalty" | "own-goal";
+}
+
+export interface Match {
+  id: string;
+  round: number;
+  homeId: string;
+  awayId: string;
+  kickoff: string;
+  venue: string;
+  status: MatchStatus;
+  minute?: number;
+  homeScore?: number;
+  awayScore?: number;
+  goals: Goal[];
+}
+
 export interface Player {
   id: string;
   clubId: string;

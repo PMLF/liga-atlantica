@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Crest } from "@/components/Crest";
 import { KitPreview } from "@/components/KitPreview";
 import { clubs } from "@/data/clubs";
@@ -9,6 +10,12 @@ export default function Home() {
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">Época 2026/27</p>
         <h1 className="font-display text-5xl font-extrabold uppercase tracking-tight text-ink">Liga Atlântica</h1>
         <p className="max-w-xl text-muted">Eight invented clubs, one fictional league. A playground for Storybook and Chromatic.</p>
+        <Link
+          href="/match/r13-farol-gaivotas"
+          className="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-ink px-5 py-2 text-sm font-semibold text-canvas hover:opacity-90"
+        >
+          Live: Farol vs Gaivotas →
+        </Link>
       </header>
       <ul className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {clubs.map((club) => (
