@@ -16,7 +16,11 @@ const pill: Record<Result, { className: string; word: string }> = {
   L: { className: "bg-loss text-white", word: "lost" },
 };
 
-/** The last few results as W/D/L pills, oldest on the left. */
+/**
+ * The last few results as W/D/L pills, oldest on the left.
+ *
+ * @import import { FormGuide } from "@/components/FormGuide";
+ */
 export function FormGuide({ results, length = 5, size = "md", className }: FormGuideProps) {
   const recent = results.slice(-length);
   const empty = Math.max(0, length - recent.length);

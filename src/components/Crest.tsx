@@ -20,7 +20,11 @@ function textOn(background: string, preferred: string) {
   return contrastRatio(background, preferred) >= 4.5 ? preferred : readableOn(background);
 }
 
-/** A generated club crest built from the club's kit colours and short code. */
+/**
+ * A generated club crest built from the club's kit colours and short code.
+ *
+ * @import import { Crest } from "@/components/Crest";
+ */
 export function Crest({ club, size = 40, className }: CrestProps) {
   const clipId = useId();
   const { primary, secondary } = club.kit;

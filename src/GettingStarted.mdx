@@ -1,5 +1,5 @@
 import { Meta, Canvas } from "@storybook/addon-docs/blocks";
-import * as KitStories from "./components/KitPreview.stories";
+import * as ClubStories from "./showcase/Clubs.stories";
 import * as TableStories from "./components/LeagueTable.stories";
 
 <Meta title="Getting started" />
@@ -9,13 +9,14 @@ import * as TableStories from "./components/LeagueTable.stories";
 A fictional eight-club Portuguese league, built as a Storybook + Chromatic playground.
 Every club, player and crest is invented.
 
-<Canvas of={KitStories.AllClubKits} />
+<Canvas of={ClubStories.AllClubKits} />
 
 ## How it's organised
 
 | Section        | What's inside                                                                 |
 | -------------- | ----------------------------------------------------------------------------- |
-| **Components** | `Crest`, `KitPreview`, `PlayerCard`, `FormGuide`, `LeagueTable`              |
+| **Components** | `Crest`, `KitPreview`, `PlayerCard`, `PlayerDialog`, `FormGuide`, `LeagueTable` |
+| **Showcase**   | `Clubs`: every kit and crest in the league                                    |
 | **Pages**      | `Match` (pure view, data via args) and `Match Centre` (fetches, mocked by MSW) |
 
 Each component has an auto-generated **Docs** page with a props table and live controls.

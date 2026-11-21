@@ -58,7 +58,11 @@ function PatternLayer({ pattern, primary, secondary }: Required<Pick<KitPreviewP
   }
 }
 
-/** An SVG football shirt in any two colours and four classic patterns. */
+/**
+ * An SVG football shirt in any two colours and four classic patterns.
+ *
+ * @import import { KitPreview } from "@/components/KitPreview";
+ */
 export function KitPreview({
   primary,
   secondary,

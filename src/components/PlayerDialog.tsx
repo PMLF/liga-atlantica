@@ -14,7 +14,11 @@ export interface PlayerDialogProps {
   onClose: () => void;
 }
 
-/** Modal with a player's full profile. Built on the native `<dialog>` element. */
+/**
+ * Modal with a player's full profile, built on the native `<dialog>` element. Pass `player={null}` to close.
+ *
+ * @import import { PlayerDialog } from "@/components/PlayerDialog";
+ */
 export function PlayerDialog({ player, onClose }: PlayerDialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
 

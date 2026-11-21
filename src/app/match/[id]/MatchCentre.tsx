@@ -6,7 +6,11 @@ import { MatchView, PageShell } from "./MatchView";
 
 type State = { status: "loading" } | { status: "error"; message: string } | { status: "ready"; data: MatchCentreData };
 
-/** Fetches a match from `/api/matches/:id` and renders loading, error and ready states. */
+/**
+ * Fetches a match from `/api/matches/:id` and renders loading, error and ready states.
+ *
+ * @import import { MatchCentre } from "@/app/match/[id]/MatchCentre";
+ */
 export function MatchCentre({ matchId }: { matchId: string }) {
   const [state, setState] = useState<State>({ status: "loading" });
   const [attempt, setAttempt] = useState(0);

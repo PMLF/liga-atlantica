@@ -67,6 +67,11 @@ const statusStyles: Record<Exclude<PlayerStatus, "available">, { badge: string; 
   suspended: { badge: "bg-[#f5b301] text-[#1a1406]", note: "bg-warning-soft text-warning", label: "Suspended" },
 };
 
+/**
+ * A player's photo, club, position, status and three headline stats. Use `playerCardProps(player)` to map a `Player` from `@/data` to props; pass `onSelect` to make the whole card clickable.
+ *
+ * @import import { PlayerCard } from "@/components/PlayerCard";
+ */
 export function PlayerCard({
   name,
   number,

@@ -43,7 +43,11 @@ function value(row: StandingRow, key: SortKey): number | string {
   return row[key];
 }
 
-/** Sortable league standings with form, qualification zones and a highlighted favourite club. */
+/**
+ * Sortable league standings with form, qualification zones and a highlighted favourite club.
+ *
+ * @import import { LeagueTable } from "@/components/LeagueTable";
+ */
 export function LeagueTable({
   standings,
   favouriteClubId,

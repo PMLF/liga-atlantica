@@ -1,6 +1,4 @@
 import preview from "#.storybook/preview";
-import { clubs } from "@/data/clubs";
-import { Crest } from "./Crest";
 import { KitPreview } from "./KitPreview";
 
 const meta = preview.meta({
@@ -44,29 +42,10 @@ export const WithNumberAndNameplate = meta.story({
 /**
  * ❌ Deliberately inaccessible: white nameplate text on a yellow shirt is ~1.6:1,
  * well below WCAG AA's 4.5:1. The a11y addon flags `color-contrast` and the test fails.
- * Tagged `known-a11y-failure` so CI can skip it (see vitest.config.ts).
+ * Tagged `known-a11y-failure` so CI can skip it (see vitest.config.ts), and `!manifest`
+ * so agents reading the MCP docs never copy it as an example.
  */
 export const LowContrastNameplate = meta.story({
-  tags: ["known-a11y-failure"],
+  tags: ["known-a11y-failure", "!manifest"],
   args: { primary: "#f2c94c", secondary: "#ffffff", pattern: "plain", number: 7, nameplate: "Salgueiro" },
-});
-
-export const AllClubKits = meta.story({
-  parameters: { layout: "padded", controls: { disable: true } },
-  render: () => (
-    <ul className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-      {clubs.map((club) => (
-        <li key={club.id} className="flex flex-col items-center gap-4 rounded-2xl border border-line bg-surface p-5">
-          <KitPreview {...club.kit} size={128} label={`${club.name} home kit`} />
-          <div className="flex w-full items-center gap-2.5 border-t border-line pt-4">
-            <Crest club={club} size={24} />
-            <div className="min-w-0">
-              <p className="truncate text-sm font-semibold text-ink">{club.shortName}</p>
-              <p className="text-xs capitalize text-muted">{club.kit.pattern}</p>
-            </div>
-          </div>
-        </li>
-      ))}
-    </ul>
-  ),
 });

@@ -70,6 +70,11 @@ function Scorers({ goals, align }: { goals: Goal[]; align: "left" | "right" }) {
   );
 }
 
+/**
+ * The full match page for already-loaded data: score header, key players (click for details) and standings. Get data with `getMatchCentre(id)` from `@/data/matches`.
+ *
+ * @import import { MatchView } from "@/app/match/[id]/MatchView";
+ */
 export function MatchView({ data }: { data: MatchCentreData }) {
   const { match, home, away, keyPlayers, standings } = data;
   const [selected, setSelected] = useState<Player | null>(null);
