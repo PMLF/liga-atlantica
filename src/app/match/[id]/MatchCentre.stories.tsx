@@ -100,27 +100,46 @@ export const RetryAfterError = meta.story({
   },
 });
 
-/** Server-rendered data shows instantly; while the match is live the page polls for a new score. */
+/** Requests seen by the live-update story, so its play function can check that polling stops. */
+let liveRequests = 0;
+
+/**
+ * Server-rendered data shows instantly; while the match is in play the page polls for updates.
+ * The stubbed server answers with the final whistle, so polling stops after one request
+ * (which also keeps Chromatic's snapshot deterministic).
+ */
 export const LiveScoreUpdate = meta.story({
   args: { initialData: data, refreshIntervalMs: 300 },
   beforeEach({ msw }) {
-    const goal = { clubId: "gaivotas", player: "Kaito Morishima", minute: 71 };
+    liveRequests = 0;
+    const equaliser = { clubId: "gaivotas", player: "Kaito Morishima", minute: 88 };
     msw.use(
-      http.get(url, () =>
-        HttpResponse.json({
+      http.get(url, () => {
+        liveRequests++;
+        return HttpResponse.json({
           ...data,
-          match: { ...data.match, minute: 72, awayScore: 2, goals: [...data.match.goals, goal] },
-        }),
-      ),
+          match: {
+            ...data.match,
+            status: "full-time",
+            minute: undefined,
+            awayScore: 2,
+            goals: [...data.match.goals, equaliser],
+          },
+        });
+      }),
     );
   },
   play: async ({ canvas, step }) => {
     await step("Server-rendered score, no loading state", async () => {
       await expect(canvas.getByLabelText("Farol 2, Gaivotas 1")).toBeVisible();
     });
-    await step("Poll brings in the equaliser", async () => {
+    await step("A poll brings in the late equaliser and the final whistle", async () => {
       await expect(await canvas.findByLabelText("Farol 2, Gaivotas 2", {}, { timeout: 3000 })).toBeVisible();
-      await expect(canvas.getByText("Live · 72'")).toBeVisible();
+      await expect(canvas.getByText("Full-time")).toBeVisible();
+    });
+    await step("Polling stops once the match is over", async () => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await expect(liveRequests).toBe(1);
     });
   },
 });
