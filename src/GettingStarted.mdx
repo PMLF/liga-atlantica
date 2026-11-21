@@ -1,0 +1,40 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import * as KitStories from "./components/KitPreview.stories";
+import * as TableStories from "./components/LeagueTable.stories";
+
+<Meta title="Getting started" />
+
+# Liga Atlântica
+
+A fictional eight-club Portuguese league, built as a Storybook + Chromatic playground.
+Every club, player and crest is invented.
+
+<Canvas of={KitStories.AllClubKits} />
+
+## How it's organised
+
+| Section        | What's inside                                                                 |
+| -------------- | ----------------------------------------------------------------------------- |
+| **Components** | `Crest`, `KitPreview`, `PlayerCard`, `FormGuide`, `LeagueTable`              |
+| **Pages**      | `Match` (pure view, data via args) and `Match Centre` (fetches, mocked by MSW) |
+
+Each component has an auto-generated **Docs** page with a props table and live controls.
+
+## Things to try
+
+- **Theme**: switch light/dark from the toolbar (the 🌗 icon). It's a `global`, applied by a decorator.
+- **Viewport**: use the viewport toolbar, or open a `Mobile` story, which pins it.
+- **Controls**: open `KitPreview → Hoops` and change the kit colours with the colour pickers.
+- **Interactions**: open `LeagueTable → Sort By Points` and watch the **Interactions** panel replay the clicks.
+- **Accessibility**: `KitPreview → Low Contrast Nameplate` fails on purpose. See the **Accessibility** panel.
+- **Network states**: `Pages → Match Centre (network)` shows loading, error, 404 and retry, all mocked with MSW.
+
+<Canvas of={TableStories.Default} />
+
+## Running tests
+
+```sh
+npx vitest --project=storybook   # every story is a test: render, play function, a11y
+```
+
+Or press **Run tests** in the Storybook sidebar to run the same suite from the UI.

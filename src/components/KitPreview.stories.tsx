@@ -41,6 +41,16 @@ export const WithNumberAndNameplate = meta.story({
   args: { number: 10, nameplate: "Mendiluce" },
 });
 
+/**
+ * ❌ Deliberately inaccessible: white nameplate text on a yellow shirt is ~1.6:1,
+ * well below WCAG AA's 4.5:1. The a11y addon flags `color-contrast` and the test fails.
+ * Tagged `known-a11y-failure` so CI can skip it (see vitest.config.ts).
+ */
+export const LowContrastNameplate = meta.story({
+  tags: ["known-a11y-failure"],
+  args: { primary: "#f2c94c", secondary: "#ffffff", pattern: "plain", number: 7, nameplate: "Salgueiro" },
+});
+
 export const AllClubKits = meta.story({
   parameters: { layout: "padded", controls: { disable: true } },
   render: () => (

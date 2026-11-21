@@ -19,13 +19,19 @@ export default defineConfig({
         plugins: [
           // The plugin will run tests for the stories defined in your Storybook config
           // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
-          storybookTest({ configDir: path.join(dirname, '.storybook') }),
+          storybookTest({
+            configDir: path.join(dirname, '.storybook'),
+            // The low-contrast kit story fails on purpose. Keep it locally for the demo, skip it in CI.
+            tags: { exclude: process.env.CI ? ['known-a11y-failure'] : [] },
+          }),
         ],
         test: {
           name: 'storybook',
           browser: {
             enabled: true,
             headless: true,
+            // Desktop-sized so responsive columns (GF/GA, Form) are visible in tests.
+            viewport: { width: 1280, height: 900 },
             provider: playwright({}),
             instances: [{ browser: 'chromium' }],
           },

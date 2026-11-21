@@ -1,11 +1,12 @@
 import addonDocs from "@storybook/addon-docs";
 import addonA11y from "@storybook/addon-a11y";
 import { definePreview } from "@storybook/nextjs-vite";
+import addonMsw from "msw-storybook-addon";
 import { fontVariables } from "../src/app/fonts";
 import "../src/app/globals.css";
 
 export default definePreview({
-  addons: [addonA11y(), addonDocs()],
+  addons: [addonA11y(), addonDocs(), addonMsw()],
 
   tags: ["autodocs"],
 
@@ -59,8 +60,8 @@ export default definePreview({
       },
     },
     a11y: {
-      // 'todo' shows violations in the UI only; 'error' fails the test run.
-      test: "todo",
+      // 'error' fails the test run on any violation; individual stories can opt down to 'todo'.
+      test: "error",
     },
   },
 });

@@ -1,4 +1,5 @@
 import preview from "#.storybook/preview";
+import { expect, fn } from "storybook/test";
 import { clubsById } from "@/data/clubs";
 import { getPlayer, squad } from "@/data/players";
 import { PlayerCard, playerCardProps } from "./PlayerCard";
@@ -30,6 +31,15 @@ const meta = preview.meta({
 });
 
 export const Default = meta.story({});
+
+/** With `onSelect`, the name becomes a button that covers the whole card. */
+export const Selectable = meta.story({
+  args: { onSelect: fn() },
+  play: async ({ args, canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole("button", { name: args.name }));
+    await expect(args.onSelect).toHaveBeenCalledOnce();
+  },
+});
 
 export const Captain = meta.story({
   args: playerCardProps(getPlayer("farol-5")),

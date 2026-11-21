@@ -1,12 +1,15 @@
+"use client";
+
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Crest } from "@/components/Crest";
 import { FormGuide } from "@/components/FormGuide";
 import { LeagueTable } from "@/components/LeagueTable";
 import { PlayerCard, playerCardProps } from "@/components/PlayerCard";
+import { PlayerDialog } from "@/components/PlayerDialog";
 import { FAVOURITE_CLUB_ID } from "@/data";
 import type { MatchCentreData } from "@/data/matches";
-import type { Club, Goal, MatchStatus } from "@/data/types";
+import type { Club, Goal, MatchStatus, Player } from "@/data/types";
 import { cn } from "@/lib/cn";
 import { formatKickoff, formatMinute } from "@/lib/format";
 
@@ -69,6 +72,7 @@ function Scorers({ goals, align }: { goals: Goal[]; align: "left" | "right" }) {
 
 export function MatchView({ data }: { data: MatchCentreData }) {
   const { match, home, away, keyPlayers, standings } = data;
+  const [selected, setSelected] = useState<Player | null>(null);
   const formOf = (id: string) => standings.find((s) => s.clubId === id)?.form ?? [];
   const kickoff = formatKickoff(match.kickoff);
   const hasScore = match.homeScore !== undefined && match.awayScore !== undefined;
@@ -120,10 +124,11 @@ export function MatchView({ data }: { data: MatchCentreData }) {
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {keyPlayers.map((p) => (
               <li key={p.id}>
-                <PlayerCard {...playerCardProps(p)} />
+                <PlayerCard {...playerCardProps(p)} onSelect={() => setSelected(p)} />
               </li>
             ))}
           </ul>
+          <PlayerDialog player={selected} onClose={() => setSelected(null)} />
         </section>
       )}
 
