@@ -52,7 +52,7 @@ function PatternLayer({ pattern, primary, secondary }: Required<Pick<KitPreviewP
         <>
           <rect width="200" height="200" fill={primary} />
           {[46, 82, 118, 154].map((y) => (
-            <rect key={y} y={y} width="200" height="18" fill={secondary} />
+            <rect key={y} y={y} width="200" height="18" fill={shade(secondary, -0.12)} />
           ))}
         </>
       );
