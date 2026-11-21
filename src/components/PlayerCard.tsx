@@ -161,7 +161,7 @@ export function PlayerCard({
         )}
       </div>
 
-      <div className="flex flex-1 flex-col gap-3 p-4">
+      <div className="flex flex-1 flex-col gap-3 p-[18px]">
         <div className="flex flex-col gap-1">
           <p className="truncate text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-muted">
             {club.name} · #{number}
