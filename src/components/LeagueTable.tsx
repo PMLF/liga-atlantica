@@ -140,7 +140,7 @@ export function LeagueTable({
                   data-club={row.clubId}
                   className={cn("h-12 border-t border-line", favourite && "bg-accent-soft")}
                 >
-                  <td className="relative pl-2 text-center font-semibold text-ink">
+                  <td className="relative pl-2 pt-1 text-center font-semibold text-ink">
                     {zone && (
                       <span
                         aria-hidden
