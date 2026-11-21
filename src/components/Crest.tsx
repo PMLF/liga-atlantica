@@ -64,7 +64,7 @@ export function Crest({ club, size = 40, className }: CrestProps) {
       {motif === "band" && !round && (
         <path
           d="M50 22 l3.2 6.6 7.2 1 -5.2 5 1.3 7.2 -6.5 -3.4 -6.5 3.4 1.3 -7.2 -5.2 -5 7.2 -1 Z"
-          fill={motif === "band" ? secondary : textOn(primary, secondary)}
+          fill={secondary}
         />
       )}
       <text

@@ -12,8 +12,19 @@ const dirname =
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
+  // Mirrors the `@/*` path in tsconfig.json (Storybook adds this itself; the unit project needs it).
+  resolve: { alias: { '@': path.join(dirname, 'src') } },
   test: {
     projects: [
+      {
+        // Plain unit tests for data and logic: fast, no browser.
+        extends: true,
+        test: {
+          name: 'unit',
+          include: ['src/**/*.test.ts'],
+          environment: 'node',
+        },
+      },
       {
         extends: true,
         plugins: [

@@ -97,7 +97,7 @@ export function PlayerCard({
         "relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-line bg-surface",
         "shadow-[0_1px_2px_rgb(0_0_0/0.04),0_12px_32px_-16px_rgb(0_0_0/0.22)]",
         onSelect &&
-          "transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_1px_2px_rgb(0_0_0/0.06),0_18px_40px_-16px_rgb(0_0_0/0.3)] has-[button:focus-visible]:ring-2 has-[button:focus-visible]:ring-accent has-[button:focus-visible]:ring-offset-2 has-[button:focus-visible]:ring-offset-canvas",
+          "transition duration-200 motion-safe:hover:-translate-y-0.5 hover:shadow-[0_1px_2px_rgb(0_0_0/0.06),0_18px_40px_-16px_rgb(0_0_0/0.3)] has-[button:focus-visible]:ring-2 has-[button:focus-visible]:ring-accent has-[button:focus-visible]:ring-offset-2 has-[button:focus-visible]:ring-offset-canvas",
         className,
       )}
     >

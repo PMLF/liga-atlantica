@@ -9,9 +9,12 @@
     "lint": "eslint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "vitest run --project=storybook",
-    "test:watch": "vitest --project=storybook",
-    "chromatic": "chromatic"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "chromatic": "chromatic",
+    "test:unit": "vitest run --project=unit",
+    "test:stories": "vitest run --project=storybook",
+    "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "next": "16.4.6",
@@ -56,5 +59,8 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "engines": {
+    "node": ">=20.9"
   }
 }

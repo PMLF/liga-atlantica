@@ -2,41 +2,36 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * Design tokens. Each is `light-dark(<light>, <dark>)`, so the app follows the OS theme
+ * automatically. Adding `.light` or `.dark` to <html> forces one (Storybook's theme toolbar does this).
+ */
 :root {
-  --canvas: #f3f5f2;
-  --surface: #ffffff;
-  --surface-2: #f0f3ef;
-  --line: #e1e6e0;
-  --ink: #101813;
-  --muted: #56625a;
-  --accent: #0a7347;
-  --accent-soft: #e3f3ea;
+  color-scheme: light dark;
+
+  --canvas: light-dark(#f3f5f2, #0a0f0c);
+  --surface: light-dark(#ffffff, #121915);
+  --surface-2: light-dark(#f0f3ef, #19221d);
+  --line: light-dark(#e1e6e0, #26322b);
+  --ink: light-dark(#101813, #eef3ef);
+  --muted: light-dark(#56625a, #9aa8a0);
+  --accent: light-dark(#0a7347, #3ddc97);
+  --accent-soft: light-dark(#e3f3ea, #123526);
   --win: #157a3c;
   --draw: #646c67;
-  --loss: #b42318;
-  --warning: #9a5b00;
-  --warning-soft: #fdf1dc;
-  --danger: #b42318;
-  --danger-soft: #fde8e6;
+  --loss: light-dark(#b42318, #c4372b);
+  --champions: light-dark(#2563eb, #5b8def);
+  --warning: light-dark(#9a5b00, #f5b544);
+  --warning-soft: light-dark(#fdf1dc, #3a2a0c);
+  --danger: light-dark(#b42318, #ff7b70);
+  --danger-soft: light-dark(#fde8e6, #3b1512);
+}
+
+:root.light {
   color-scheme: light;
 }
 
-.dark {
-  --canvas: #0a0f0c;
-  --surface: #121915;
-  --surface-2: #19221d;
-  --line: #26322b;
-  --ink: #eef3ef;
-  --muted: #9aa8a0;
-  --accent: #3ddc97;
-  --accent-soft: #123526;
-  --win: #157a3c;
-  --draw: #646c67;
-  --loss: #c4372b;
-  --warning: #f5b544;
-  --warning-soft: #3a2a0c;
-  --danger: #ff7b70;
-  --danger-soft: #3b1512;
+:root.dark {
   color-scheme: dark;
 }
 
@@ -52,6 +47,7 @@
   --color-win: var(--win);
   --color-draw: var(--draw);
   --color-loss: var(--loss);
+  --color-champions: var(--champions);
   --color-warning: var(--warning);
   --color-warning-soft: var(--warning-soft);
   --color-danger: var(--danger);

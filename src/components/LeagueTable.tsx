@@ -146,7 +146,7 @@ export function LeagueTable({
                         aria-hidden
                         className={cn(
                           "absolute inset-y-2 left-0 w-1 rounded-r",
-                          zone === "cl" ? "bg-[#2563eb]" : "bg-loss",
+                          zone === "cl" ? "bg-champions" : "bg-loss",
                         )}
                       />
                     )}
@@ -199,7 +199,7 @@ export function LeagueTable({
       </div>
       <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line px-4 py-3 text-xs text-muted">
         <li className="flex items-center gap-2">
-          <span aria-hidden className="h-3 w-1 rounded bg-[#2563eb]" />
+          <span aria-hidden className="h-3 w-1 rounded bg-champions" />
           Champions League
         </li>
         <li className="flex items-center gap-2">

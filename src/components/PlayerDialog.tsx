@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 import { getClub } from "@/data/clubs";
 import type { Player } from "@/data/types";
 import { countryName, flagEmoji } from "@/lib/country";
@@ -21,6 +21,7 @@ export interface PlayerDialogProps {
  */
 export function PlayerDialog({ player, onClose }: PlayerDialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
+  const titleId = useId();
 
   useEffect(() => {
     const dialog = ref.current;
@@ -47,7 +48,7 @@ export function PlayerDialog({ player, onClose }: PlayerDialogProps) {
       ref={ref}
       onClose={onClose}
       onClick={(e) => e.target === e.currentTarget && onClose()}
-      aria-labelledby="player-dialog-title"
+      aria-labelledby={titleId}
       className="m-auto w-[min(28rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-line bg-surface p-0 text-ink shadow-2xl backdrop:bg-black/50 backdrop:backdrop-blur-sm"
     >
       {player && club && (
@@ -62,7 +63,7 @@ export function PlayerDialog({ player, onClose }: PlayerDialogProps) {
                 <Crest club={club} size={18} />
                 <span className="truncate">{club.name}</span>
               </span>
-              <h2 id="player-dialog-title" className="font-display text-3xl font-bold uppercase leading-none">
+              <h2 id={titleId} className="font-display text-3xl font-bold uppercase leading-none">
                 {player.name}
               </h2>
               <p className="text-sm text-muted">

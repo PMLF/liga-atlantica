@@ -1,7 +1,7 @@
 import { useId } from "react";
 import type { KitPattern } from "@/data/types";
 import { cn } from "@/lib/cn";
-import { readableOn, shade } from "@/lib/color";
+import { readableOn, shade, WHITE } from "@/lib/color";
 
 export interface KitPreviewProps {
   /** Main shirt colour. */
@@ -12,7 +12,10 @@ export interface KitPreviewProps {
   pattern?: KitPattern;
   /** Optional shirt number printed on the front. */
   number?: number;
-  /** Optional nameplate shown under the shirt, printed in the kit colours. */
+  /**
+   * Optional nameplate shown under the shirt, printed in the kit colours exactly as given.
+   * Some kit combinations are low-contrast; the a11y tests catch those (see Low Contrast Nameplate).
+   */
   nameplate?: string;
   /** Rendered width of the shirt in pixels. */
   size?: number;
@@ -20,6 +23,13 @@ export interface KitPreviewProps {
   label?: string;
   className?: string;
 }
+
+const patternNames: Record<KitPattern, string> = {
+  plain: "plain",
+  stripes: "striped",
+  hoops: "hooped",
+  halves: "halved",
+};
 
 const SHIRT =
   "M70 20 L50 26 L14 50 L28 86 L46 78 L46 182 Q100 190 154 182 L154 78 L172 86 L186 50 L150 26 L130 20 Q100 42 70 20 Z";
@@ -87,7 +97,7 @@ export function KitPreview({
         width={size}
         height={size}
         role="img"
-        aria-label={label ?? `${pattern} shirt in ${primary} and ${secondary}${number ? `, number ${number}` : ""}`}
+        aria-label={label ?? `${patternNames[pattern]} football shirt${number !== undefined ? `, number ${number}` : ""}`}
       >
         <defs>
           <clipPath id={clipId}>
@@ -106,7 +116,8 @@ export function KitPreview({
           <rect width="200" height="200" fill={`url(#${shadeId})`} />
         </g>
         <path d="M70 20 Q100 42 130 20" fill="none" stroke={halves ? shade(primary, -0.3) : secondary} strokeWidth="7" strokeLinecap="round" />
-        <path d={SHIRT} fill="none" stroke="#000" strokeOpacity="0.28" strokeWidth="2" strokeLinejoin="round" />
+        {/* Outline follows the theme ink so dark kits stay visible on dark backgrounds. */}
+        <path d={SHIRT} fill="none" stroke="var(--ink, #000)" strokeOpacity="0.3" strokeWidth="2" strokeLinejoin="round" />
         {number !== undefined && (
           <text
             x="100"
@@ -117,7 +128,7 @@ export function KitPreview({
             fontWeight="800"
             fontSize="60"
             fill={numberFill}
-            stroke={numberFill === "#ffffff" ? "#000" : "#fff"}
+            stroke={numberFill === WHITE ? "#000" : "#fff"}
             strokeOpacity="0.35"
             strokeWidth="3"
             paintOrder="stroke"

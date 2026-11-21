@@ -1,7 +1,7 @@
 import type { Player, PlayerStats, Position } from "./types";
 
-let photoIndex = 0;
-const photo = () => `/players/silhouette-${(photoIndex++ % 4) + 1}.svg`;
+/** Placeholder portraits; picked by shirt number so a player always gets the same one. */
+const photo = (number: number) => `/players/silhouette-${(number % 4) + 1}.svg`;
 
 function player(
   clubId: string,
@@ -14,7 +14,7 @@ function player(
   extra: Partial<Player> = {},
 ): Player {
   const id = `${clubId}-${number}`;
-  return { id, clubId, number, name, position, nationality, rating, stats, status: "available", photoUrl: photo(), ...extra };
+  return { id, clubId, number, name, position, nationality, rating, stats, status: "available", photoUrl: photo(number), ...extra };
 }
 
 export const players: Player[] = [

@@ -4,6 +4,5 @@
   "onlyChanged": true,
   "externals": ["public/**"],
   "exitZeroOnChanges": true,
-  "autoAcceptChanges": "main",
-  "skip": "dependabot/**"
+  "autoAcceptChanges": "main"
 }

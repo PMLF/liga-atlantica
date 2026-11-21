@@ -15,9 +15,9 @@ Every club, player and crest is invented.
 
 | Section        | What's inside                                                                 |
 | -------------- | ----------------------------------------------------------------------------- |
-| **Components** | `Crest`, `KitPreview`, `PlayerCard`, `PlayerDialog`, `FormGuide`, `LeagueTable` |
+| **Components** | `Crest`, `KitPreview`, `PlayerCard`, `PlayerDialog`, `FormGuide`, `LeagueTable`, `StatusPill`, `FixtureCard` |
 | **Showcase**   | `Clubs`: every kit and crest in the league                                    |
-| **Pages**      | `Match` (pure view, data via args) and `Match Centre` (fetches, mocked by MSW) |
+| **Pages**      | `Home`, `Match` (pure view, data via args) and `Match Centre` (data lifecycle, mocked by MSW) |
 
 Each component has an auto-generated **Docs** page with a props table and live controls.
 
@@ -28,14 +28,15 @@ Each component has an auto-generated **Docs** page with a props table and live c
 - **Controls**: open `KitPreview → Hoops` and change the kit colours with the colour pickers.
 - **Interactions**: open `LeagueTable → Sort By Points` and watch the **Interactions** panel replay the clicks.
 - **Accessibility**: `KitPreview → Low Contrast Nameplate` fails on purpose. See the **Accessibility** panel.
-- **Network states**: `Pages → Match Centre (network)` shows loading, error, 404 and retry, all mocked with MSW.
+- **Network states**: `Pages → Match Centre (network)` shows loading, errors, retry and a live score update, all mocked with MSW.
 
 <Canvas of={TableStories.Default} />
 
 ## Running tests
 
 ```sh
-npx vitest --project=storybook   # every story is a test: render, play function, a11y
+npm run test:stories   # every story is a test: render, play function, a11y
+npm run test:unit      # data integrity, colour maths, API route
 ```
 
 Or press **Run tests** in the Storybook sidebar to run the same suite from the UI.

@@ -7,9 +7,10 @@ import { FormGuide } from "@/components/FormGuide";
 import { LeagueTable } from "@/components/LeagueTable";
 import { PlayerCard, playerCardProps } from "@/components/PlayerCard";
 import { PlayerDialog } from "@/components/PlayerDialog";
+import { StatusPill } from "@/components/StatusPill";
 import { FAVOURITE_CLUB_ID } from "@/data";
 import type { MatchCentreData } from "@/data/matches";
-import type { Club, Goal, MatchStatus, Player } from "@/data/types";
+import type { Club, Goal, Player } from "@/data/types";
 import { cn } from "@/lib/cn";
 import { formatKickoff, formatMinute } from "@/lib/format";
 
@@ -23,23 +24,6 @@ export function PageShell({ children }: { children: ReactNode }) {
       </nav>
       {children}
     </main>
-  );
-}
-
-function StatusPill({ status, minute }: { status: MatchStatus; minute?: number }) {
-  const styles: Record<MatchStatus, { label: string; className: string }> = {
-    live: { label: `Live · ${minute ?? 0}'`, className: "bg-loss text-white" },
-    "half-time": { label: "Half-time", className: "bg-warning-soft text-warning" },
-    "full-time": { label: "Full-time", className: "bg-surface-2 text-ink" },
-    scheduled: { label: "Upcoming", className: "bg-accent-soft text-accent" },
-    postponed: { label: "Postponed", className: "bg-danger-soft text-danger" },
-  };
-  const s = styles[status];
-  return (
-    <span className={cn("inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold", s.className)}>
-      {status === "live" && <span aria-hidden className="size-1.5 animate-pulse rounded-full bg-white" />}
-      {s.label}
-    </span>
   );
 }
 
@@ -59,8 +43,8 @@ function Team({ club, form }: { club: Club; form: MatchCentreData["standings"][n
 function Scorers({ goals, align }: { goals: Goal[]; align: "left" | "right" }) {
   return (
     <ul className={cn("flex flex-col gap-1 text-sm text-muted", align === "right" ? "items-end text-right" : "items-start")}>
-      {goals.map((g) => (
-        <li key={`${g.player}-${g.minute}-${g.stoppage ?? 0}`}>
+      {goals.map((g, i) => (
+        <li key={i}>
           <span className="text-ink">{g.player.split(" ").at(-1)}</span> {formatMinute(g.minute, g.stoppage)}
           {g.kind === "penalty" && " (pen)"}
           {g.kind === "own-goal" && " (og)"}
@@ -98,7 +82,10 @@ export function MatchView({ data }: { data: MatchCentreData }) {
           <Team club={home} form={formOf(home.id)} />
           <div className="flex flex-col items-center gap-1 pt-4">
             {hasScore ? (
-              <p className="font-display text-5xl font-extrabold tabular-nums leading-none text-ink sm:text-7xl">
+              <p
+                aria-label={`${home.shortName} ${match.homeScore}, ${away.shortName} ${match.awayScore}`}
+                className="font-display text-5xl font-extrabold tabular-nums leading-none text-ink sm:text-7xl"
+              >
                 {match.homeScore}
                 <span className="mx-2 text-muted sm:mx-3">–</span>
                 {match.awayScore}
@@ -126,7 +113,7 @@ export function MatchView({ data }: { data: MatchCentreData }) {
           <h2 id="key-players" className="font-display text-2xl font-bold uppercase tracking-wide text-ink">
             Key players
           </h2>
-          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-[repeat(auto-fill,minmax(14rem,1fr))]">
             {keyPlayers.map((p) => (
               <li key={p.id}>
                 <PlayerCard {...playerCardProps(p)} onSelect={() => setSelected(p)} />

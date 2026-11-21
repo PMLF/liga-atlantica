@@ -1,4 +1,4 @@
-name: UI tests
+name: CI
 
 on:
   pull_request:
@@ -11,8 +11,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  interaction-and-a11y:
-    name: Interaction + a11y tests (Vitest)
+  checks:
+    name: Lint + typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+
+  tests:
+    name: Unit + interaction + a11y tests (Vitest)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -22,7 +35,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
-      # CI=true (set by GitHub) skips the story tagged `known-a11y-failure`.
+      # Runs both Vitest projects. CI=true (set by GitHub) skips the story tagged `known-a11y-failure`.
       - run: npm test
 
   visual:

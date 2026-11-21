@@ -33,7 +33,9 @@ export default definePreview({
     (Story, { globals }) => {
       const dark = globals.theme === "dark";
       const root = document.documentElement;
+      // Force the theme either way so stories never follow the OS setting (Chromatic must be deterministic).
       root.classList.toggle("dark", dark);
+      root.classList.toggle("light", !dark);
       root.classList.add(...fontVariables.split(" "));
       return (
         <div className="font-sans text-ink antialiased">
